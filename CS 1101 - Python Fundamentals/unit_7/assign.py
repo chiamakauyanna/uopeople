@@ -1,3 +1,4 @@
+import os
 # Question 1:
 # You are assisting a university event coordinator who has collected feedback messages from students after a guest lecture. Many of the comments are messy and inconsistently formatted, and your task is to clean the text before saving it in a report.
 # One of the raw feedback is: “ THE SPEAKER WAS GREAT but THE ROOM WAS COLD ”
@@ -28,6 +29,43 @@ print(f'Final cleaned output: {titled}')
 # Implement file reading by opening feedback.txt and printing all feedback lines one by one.
 # Implement file appending by adding one more feedback message to the same file, then read and print the full updated list again.
 
+feedback_list = [
+    'The guest lecture was very insightful!!',
+    'Great speaker, but the room was too crowded...',
+    'I learned a lot, thank you for organizing this event.'
+]
+
+# File writing
+if not os.path.exists("feedback.txt"):
+  with open("feedback.txt", "w") as write_feedback:
+    for feedback in feedback_list:
+      write_feedback.write(feedback + "\n")
+else:
+  print("The file you wish to create already exists")
+    
+    
+# file reading
+try:
+  with open("feedback.txt") as read_feedback:
+      print("Feedback list: ")
+      for feedback in feedback_list:
+        print(read_feedback.read())
+except:
+  print("The file you wish to read does not exist")
+ 
+
+# File appending
+try:
+  with open("feedback.txt", "a") as append_feedback:
+        append_feedback.write("The Q&A session at the end was really helpful.")
+        if not os.path.exists("feedback.txt"):
+          with open("feedback.txt", "w") as write_feedback:
+            for feedback in feedback_list:
+              write_feedback.write(feedback + "\n")
+        else:
+          print("The file you wish to create already exists")
+except:
+  print("The file does not exist")   
 
 # Question 3:
 # The event coordinator sometimes may try to open the feedback.txt file before it exists or while it is being used by another program. To prevent the program from crashing, you need to add exception handling that manages these file errors safely.
