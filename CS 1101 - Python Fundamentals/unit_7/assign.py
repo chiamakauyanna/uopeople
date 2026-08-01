@@ -57,7 +57,7 @@ except:
 # File appending
 try:
   with open("feedback.txt", "a") as append_feedback:
-        append_feedback.write("The Q&A session at the end was really helpful.")
+        append_feedback.write("The Q&A session at the end was really helpful.\n ")
         if not os.path.exists("feedback.txt"):
           with open("feedback.txt", "w") as write_feedback:
             for feedback in feedback_list:
@@ -75,7 +75,18 @@ except:
 # "Permission denied. Close the file and try again." for PermissionError
 # Apply a finally block to always print "Operation completed." whether the file is opened successfully or not.
 
-
+# file reading
+try:
+  with open("feedback.txt") as read_feedback:
+      print("Feedback list: ")
+      for feedback in feedback_list:
+        print(read_feedback.read())
+except FileNotFoundError:
+  print("File not found. Please create feedback.txt first.")
+except PermissionError:
+  print("Permission denied. Close the file and try again.")
+finally:
+  print("Operation completed.")
 
 # Question 4:
 # The event coordinator wants to know how many students used the word “great” in their feedback. Using Python, you will analyze the contents of the feedback file, count mentions of this word, and create a short summary report.
