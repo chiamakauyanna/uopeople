@@ -6,19 +6,19 @@ import os
 
 raw_feedback = " THE SPEAKER WAS GREAT but THE ROOM WAS COLD "
 stripped_feedback = raw_feedback.strip()
-print(stripped_feedback)
+print("Stripped -", stripped_feedback)
 
 lowercased_feedback = stripped_feedback.lower()
-print(lowercased_feedback)
+print("Lowercase -", lowercased_feedback)
 
 # Manipulate the wording to standardize it by replacing "speaker" with "presenter" using replace(), then remove any extra internal spaces with " ".join(s.split()).
 # Manipulate the cleaned text into title case using title() and display the final output using an f-string.
 
 standardized = lowercased_feedback.replace('speaker', 'presenter')
-print(standardized)
+print("Standardized -", standardized)
 
 joined = " ".join(standardized.split())
-print(joined)
+print("Joined -", joined)
 
 titled = joined.title()
 print(f'Final cleaned output: {titled}')
@@ -31,7 +31,7 @@ print(f'Final cleaned output: {titled}')
 
 feedback_list = [
     'The guest lecture was very insightful!!',
-    'Great speaker, but the room was too crowded...',
+    'Great speaker, but the room was too crowded.',
     'I learned a lot, thank you for organizing this event.'
 ]
 
@@ -48,8 +48,8 @@ else:
 try:
   with open("feedback.txt") as read_feedback:
       print("Feedback list: ")
-      for feedback in feedback_list:
-        print(read_feedback.read())
+      for feedback in read_feedback:
+        print(feedback)
 except:
   print("The file you wish to read does not exist")
  
@@ -57,11 +57,11 @@ except:
 # File appending
 try:
   with open("feedback.txt", "a") as append_feedback:
-        append_feedback.write("The Q&A session at the end was really helpful.\n ")
+        append_feedback.write("The Q&A session at the end was really insightful.\n")
         if not os.path.exists("feedback.txt"):
           with open("feedback.txt", "w") as write_feedback:
-            for feedback in feedback_list:
-              write_feedback.write(feedback + "\n")
+              for feedback in feedback_list:
+                write_feedback.write(feedback + "\n")
         else:
           print("The file you wish to create already exists")
 except:
@@ -75,12 +75,12 @@ except:
 # "Permission denied. Close the file and try again." for PermissionError
 # Apply a finally block to always print "Operation completed." whether the file is opened successfully or not.
 
-# file reading
+# file reading with specific error handling
 try:
   with open("feedback.txt") as read_feedback:
-      print("Feedback list: ")
-      for feedback in feedback_list:
-        print(read_feedback.read())
+      print("Feedback list for error handling: ")
+      for feedback in read_feedback:
+        print(feedback)
 except FileNotFoundError:
   print("File not found. Please create feedback.txt first.")
 except PermissionError:
@@ -96,3 +96,24 @@ finally:
 # Total Feedback: X
 # Mentions of 'Great': Y
 # Implement a formatted print statement that displays the same summary neatly on the console using f-strings.
+
+# file reading with short summary
+try:
+  with open("feedback.txt") as read_feedback:
+      print("Feedback list for lower and find: ")
+      
+      for feedback in read_feedback:
+        lowercase = feedback.lower()
+        print(lowercase)
+        
+        num = 0
+        if 'great'.lower() in lowercase:
+          num+=1
+          print(num)
+      
+except FileNotFoundError:
+  print("File not found. Please create feedback.txt first.")
+except PermissionError:
+  print("Permission denied. Close the file and try again.")
+finally:
+  print("Operation completed.")
