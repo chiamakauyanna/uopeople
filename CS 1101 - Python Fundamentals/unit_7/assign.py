@@ -102,14 +102,15 @@ try:
   with open("feedback.txt") as read_feedback:
       print("Feedback list for lower and find: ")
       
+      num = 0
       for feedback in read_feedback:
         lowercase = feedback.lower()
         print(lowercase)
         
-        num = 0
+        
         if 'great'.lower() in lowercase:
           num+=1
-          print(num)
+      print(f"Number of 'great' occurence is {num}")
       
 except FileNotFoundError:
   print("File not found. Please create feedback.txt first.")
