@@ -37,35 +37,36 @@ feedback_list = [
 
 # File writing
 if not os.path.exists("feedback.txt"):
-  with open("feedback.txt", "w") as write_feedback:
-    for feedback in feedback_list:
-      write_feedback.write(feedback + "\n")
+    with open("feedback.txt", "w") as write_feedback:
+        for feedback in feedback_list:
+            write_feedback.write(feedback + "\n")
 else:
-  print("The file you wish to create already exists")
-    
-    
+    print("The file you wish to create already exists")
+
+
 # file reading
 try:
-  with open("feedback.txt") as read_feedback:
-      print("Feedback list: ")
-      for feedback in read_feedback:
-        print(feedback)
+    with open("feedback.txt") as read_feedback:
+        print("Feedback list: ")
+        for feedback in read_feedback:
+            print(feedback)
 except:
-  print("The file you wish to read does not exist")
- 
+    print("The file you wish to read does not exist")
+
 
 # File appending
 try:
-  with open("feedback.txt", "a") as append_feedback:
-        append_feedback.write("The Q&A session at the end was really insightful.\n")
-        if not os.path.exists("feedback.txt"):
-          with open("feedback.txt", "w") as write_feedback:
-              for feedback in feedback_list:
-                write_feedback.write(feedback + "\n")
-        else:
-          print("The file you wish to create already exists")
+    with open("feedback.txt", "a") as append_feedback:
+        append_feedback.write(
+            "The Q&A session at the end was really insightful.\n")
+
+# Read and print the full updated list again
+    with open("feedback.txt") as read_feedback:
+        print("Updated feedback list: ")
+        for feedback in read_feedback:
+            print(feedback)
 except:
-  print("The file does not exist")   
+    print("The file does not exist")
 
 # Question 3:
 # The event coordinator sometimes may try to open the feedback.txt file before it exists or while it is being used by another program. To prevent the program from crashing, you need to add exception handling that manages these file errors safely.
@@ -77,16 +78,16 @@ except:
 
 # file reading with specific error handling
 try:
-  with open("feedback.txt") as read_feedback:
-      print("Feedback list for error handling: ")
-      for feedback in read_feedback:
-        print(feedback)
+    with open("feedback.txt") as read_feedback:
+        print("Feedback list for error handling: ")
+        for feedback in read_feedback:
+            print(feedback)
 except FileNotFoundError:
-  print("File not found. Please create feedback.txt first.")
+    print("File not found. Please create feedback.txt first.")
 except PermissionError:
-  print("Permission denied. Close the file and try again.")
+    print("Permission denied. Close the file and try again.")
 finally:
-  print("Operation completed.")
+    print("Operation completed.")
 
 # Question 4:
 # The event coordinator wants to know how many students used the word “great” in their feedback. Using Python, you will analyze the contents of the feedback file, count mentions of this word, and create a short summary report.
@@ -97,24 +98,31 @@ finally:
 # Mentions of 'Great': Y
 # Implement a formatted print statement that displays the same summary neatly on the console using f-strings.
 
-# file reading with short summary
 try:
-  with open("feedback.txt") as read_feedback:
-      print("Feedback list for lower and find: ")
-      
-      num = 0
-      for feedback in read_feedback:
-        lowercase = feedback.lower()
-        print(lowercase)
-        
-        
-        if 'great'.lower() in lowercase:
-          num+=1
-      print(f"Number of 'great' occurence is {num}")
-      
+    with open("feedback.txt") as read_feedback:
+        lines = read_feedback.readlines()
+
+        total_feedback = len(lines)
+        great_count = 0
+        for feedback in lines:
+            lowercase = feedback.lower()
+            if "great" in lowercase:
+                great_count += 1
+
+    # Write summary.txt
+    with open("summary.txt", "w") as write_summary:
+        write_summary.write("=== Workshop Feedback Summary ===\n")
+        write_summary.write(f"Total Feedback: {total_feedback}\n")
+        write_summary.write(f"Mentions of 'Great': {great_count}\n")
+
+    # Console summary
+    print("=== Workshop Feedback Summary ===")
+    print(f"Total Feedback: {total_feedback}")
+    print(f"Mentions of 'Great': {great_count}")
+
 except FileNotFoundError:
-  print("File not found. Please create feedback.txt first.")
+    print("File not found. Please create feedback.txt first.")
 except PermissionError:
-  print("Permission denied. Close the file and try again.")
+    print("Permission denied. Close the file and try again.")
 finally:
-  print("Operation completed.")
+    print("Operation completed.")
